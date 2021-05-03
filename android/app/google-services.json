@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "565032118238",
+    "firebase_url": "https://silver-archery-278009.firebaseio.com",
+    "project_id": "silver-archery-278009",
+    "storage_bucket": "silver-archery-278009.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565032118238:android:5b88a37fa5045205b89f4f",
+        "android_client_info": {
+          "package_name": "com.example.marketplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565032118238-nd6roguqcc5vh2cki2kghab937i1u653.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgCPKBSjg4H14Uxng6-EtSNUgo9Ep7UAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565032118238-nd6roguqcc5vh2cki2kghab937i1u653.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
