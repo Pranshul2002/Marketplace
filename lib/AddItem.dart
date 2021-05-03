@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:marketplace/HomePage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddItem extends StatefulWidget {
   @override
@@ -32,15 +33,6 @@ class _AddItemState extends State<AddItem> {
         print('No image selected.');
       }
     });
-  }
-
-  List<String> upload;
-  @override
-  void initState() {
-    super.initState();
-    upload = HomePageState.pref.getStringList("upload") != null
-        ? HomePageState.pref.getStringList("upload")
-        : [];
   }
 
   @override
@@ -214,9 +206,19 @@ class _AddItemState extends State<AddItem> {
                         "images": Urls,
                         "phone_number": int.parse(contact.text)
                       });
+
+                      List<String> upload =
+                          HomePageState.pref.getStringList("upload") != null
+                              ? HomePageState.pref.getStringList("upload")
+                              : [];
                       upload.add(doc_name);
-                      await HomePageState.pref.setStringList("upload", upload);
-                      Navigator.of(context).pop(true);
+                      print(upload);
+                      HomePageState.pref
+                          .setStringList("upload", upload)
+                          .then((value) {
+                        print(value);
+                        Navigator.of(context).pop(true);
+                      });
                     }
                   },
                   child: Text("Post"))

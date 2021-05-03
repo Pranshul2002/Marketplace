@@ -22,13 +22,18 @@ class HomePageState extends State<HomePage> {
   getShared() async {
     SharedPreferences.setMockInitialValues({});
     pref = await SharedPreferences.getInstance();
-    uploaded = pref.getStringList("upload") != null
-        ? pref.getStringList("upload")
-        : [];
-    fav = pref.getStringList("favourite") != null
-        ? pref.getStringList("favourite")
-        : [];
+  }
+
+  getShared1() {
     setState(() {
+      uploaded = pref.getStringList("upload") != null
+          ? pref.getStringList("upload")
+          : [];
+      print(uploaded);
+      fav = pref.getStringList("favourite") != null
+          ? pref.getStringList("favourite")
+          : [];
+
       loading = false;
     });
   }
@@ -59,18 +64,22 @@ class HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    "Price: \u{20B9}${ds.data()["price"].toString()}",
-                    style: TextStyle(color: Color(0xfff5f0e1), fontSize: 17),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      "Price: \u{20B9}${ds.data()["price"].toString()}",
+                      style: TextStyle(color: Color(0xfff5f0e1), fontSize: 17),
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    "Location: ${ds.data()["location"]}",
-                    style: TextStyle(color: Color(0xfff5f0e1), fontSize: 17),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      "Location: ${ds.data()["location"]}",
+                      style: TextStyle(color: Color(0xfff5f0e1), fontSize: 17),
+                    ),
                   ),
                 ),
               ],
@@ -116,9 +125,6 @@ class HomePageState extends State<HomePage> {
                         FirebaseFirestore.instance
                             .collection("market")
                             .doc(ds.id)
-                            .delete();
-                        await firebase_storage.FirebaseStorage.instance
-                            .ref(ds.id)
                             .delete();
                       },
                       child: Text(
@@ -170,7 +176,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if (run) {
       setState(() {
-        getShared();
+        getShared1();
         print(uploaded);
         run = false;
       });
@@ -182,6 +188,11 @@ class HomePageState extends State<HomePage> {
         onPressed: () async {
           run = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (_) => AddItem()));
+          if (run == null) {
+            run = false;
+          } else {
+            loading = true;
+          }
           setState(() {});
         },
       ),
